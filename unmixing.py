@@ -1,7 +1,6 @@
 from typing import Type
 from logging import getLogger
 
-# from src.configs import UnmixingConfig
 from src.noise import AdditiveWhiteGaussianNoise
 from src.data import HSImage
 from src.utils import SVD_projection
@@ -144,10 +143,6 @@ def unmix(
 
 
 if __name__ == "__main__":
-    # from hydra_zen import ZenStore
-
-    # store = ZenStore(deferred_hydra_store=False)
-    # store(UnmixingConfig, name="unmixing")
     store.add_to_hydra_store()
     zen(unmix).hydra_main(
         config_name="unmixing",
