@@ -132,7 +132,7 @@ class SUnCNN(nn.Module, BaseUnmixingModel):
 
         return torch.cat(inputs_, dim=1)
 
-    def compute_abundances(self, Y, D, H, W, seed=0, *args, **kwargs):
+    def compute_abundances(self, Y, D, h, w, seed=0, *args, **kwargs):
         tic = time.time()
         logs.debug("Solving started...")
 
@@ -140,7 +140,7 @@ class SUnCNN(nn.Module, BaseUnmixingModel):
         self.L, self.N = Y.shape
         LD, self.M = D.shape
         assert self.L == LD, "Inconsistent number of channels for Y and D"
-        self.H, self.W = H, W
+        self.H, self.W = h, w
 
         self.init_architecture(seed=seed)
         optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)

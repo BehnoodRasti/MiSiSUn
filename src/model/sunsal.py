@@ -539,7 +539,7 @@ class S2WSU(BaseUnmixingModel):
         max_b = np.maximum(np.abs(b) - t, 0)
         return b * (max_b / (max_b + t))
 
-    def compute_abundances(self, Y, D, H, W, *args, **kwargs):
+    def compute_abundances(self, Y, D, h, w, *args, **kwargs):
         tic = time.time()
         LD, M = D.shape
         L, N = Y.shape
@@ -601,14 +601,14 @@ class S2WSU(BaseUnmixingModel):
 
         while k <= AL_iters2:
             NU = np.zeros((M, N))
-            X2 = np.reshape(v3 - d3, (M, H, W))
+            X2 = np.reshape(v3 - d3, (M, h, w))
             for ii in range(M):
                 NU[ii] = convolve2d(X2[ii], kernel, mode="same").flatten()
 
-            w = 1 / (0.01 + np.abs(NU))
+            w0 = 1 / (0.01 + np.abs(NU))
 
             NU2 = LA.norm(v3 - d3, axis=1, keepdims=True)
-            w1 = w / NU2
+            w1 = w0 / NU2
 
             while (i <= self.AL_iters) and np.abs(res_p) > tol:
                 # Save u to be used later

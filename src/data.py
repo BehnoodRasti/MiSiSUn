@@ -120,7 +120,9 @@ class HSImage:
         return (self.h, self.w)
 
     def get_labels(self) -> list:
-        return self.labels
+        labels = self.labels if self.has_labels else [f"#{ii}" for ii in range(self.r)]
+
+        return labels
 
     def get_index(self) -> list:
         return self.index

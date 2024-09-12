@@ -23,8 +23,8 @@ class MUA_SLIC(BaseUnmixingModel):
         self,
         Y,
         D,
-        H,
-        W,
+        h,
+        w,
         *args,
         **kwargs,
     ):
@@ -33,7 +33,7 @@ class MUA_SLIC(BaseUnmixingModel):
         LD, M = D.shape
         assert L == LD, "Inconsistent number of channels for D and Y"
         # Reshape into image
-        Y_img = Y.T.reshape(H, W, L)
+        Y_img = Y.T.reshape(h, w, L)
 
         # Rescale the data
         # NOTE Is the following step necessary?
@@ -80,7 +80,7 @@ class MUA_SLIC(BaseUnmixingModel):
         logs.info(f"X shape => {X.shape}")
 
         # Reattribute abundances for the entire matrix
-        A0 = np.zeros((H, W, M))
+        A0 = np.zeros((h, w, M))
         for label in range(n_superpixels):
             A0[labels == label] = X[:, label]
 

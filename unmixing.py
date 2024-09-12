@@ -5,7 +5,12 @@ from logging import getLogger
 from src.noise import AdditiveWhiteGaussianNoise
 from src.data import HSImage
 from src.utils import SVD_projection
-from src.model import BatchVCA
+from src.model.base import BaseUnmixingModel
+from src.model.sunsal import SUnSAL, CLSUnSAL, S2WSU
+from src.model.mua import MUA_SLIC
+from src.model.deep_image_prior import SUnCNN
+from src.model.archetypal_analysis import SUnAA, FaSUn, MiSiSUn, SUnShrink
+from src.metrics import compute_metric, SRE, aRMSE
 
 from hydra_zen import zen, store, make_custom_builds_fn
 import numpy as np
@@ -45,8 +50,18 @@ noise_store(AWGN_30dB, name="30dB")
 noise_store(AWGN_40dB, name="40dB")
 
 
-# TODO: Create unmixing model config
-# TODO: Register model config under group: model
+# Register model config under group: model
+model_store = store(group="model")
+
+model_store(SUnSAL, name="SUnSAL")
+model_store(CLSUnSAL, name="CLSUnSAL")
+model_store(S2WSU, name="S2WSU")
+model_store(MUA_SLIC, name="MUA_SLIC")
+model_store(SUnCNN, name="SUnCNN")
+model_store(SUnAA, name="SUnAA")
+model_store(FaSUn, name="FaSUn")
+model_store(SUnShrink, name="SUnS")
+model_store(MiSiSUn, name="MiSiSUn")
 
 
 @store(
@@ -59,14 +74,19 @@ noise_store(AWGN_40dB, name="40dB")
         {
             "noise": "30dB",
         },
+        {
+            "model": "SUnSAL",
+        },
     ],
 )
 def unmix(
     noise: Type[AdditiveWhiteGaussianNoise],
     hsi: Type[HSImage],
+    model: Type[BaseUnmixingModel],
     l2_normalize: bool = False,
     SVD_project: bool = False,
 ):
+    logs.info("SEMI-SUPERVISED UNMIXING...[START]")
     logs.info(hsi)
     # Get data
     Y, r, D = hsi()
@@ -85,6 +105,42 @@ def unmix(
     # SVD projection
     if SVD_project:
         Y = SVD_projection(Y, r)
+    # model
+    # NOTE: Return full abundances
+    A = model.compute_abundances(Y, D, r=r, h=h, w=w)
+
+    if hsi.has_GT:
+        # Get abundances ground truth
+        _, A_GT = hsi.get_GT()
+        # A_GT.shape => (r, n)
+        # Get index
+        A1 = A[hsi.get_index()]
+        # Get labels
+        labels = hsi.get_labels()
+        # Compute SRE
+        logs.info(
+            compute_metric(
+                SRE(),
+                A_GT,
+                A1,
+                labels,
+                detail=False,
+                on_endmembers=False,
+            )
+        )
+        # Compute aRMSE
+        logs.info(
+            compute_metric(
+                aRMSE(),
+                A_GT,
+                A1,
+                labels,
+                detail=True,
+                on_endmembers=False,
+            )
+        )
+
+    logs.info("SEMI-SUPERVISED UNMIXING...[END]")
 
 
 if __name__ == "__main__":
