@@ -1,5 +1,8 @@
 # Data folder
 **/data
 
+# Outputs
+**/outputs
+
 # Compiled code
 *.pyc

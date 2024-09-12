@@ -31,7 +31,7 @@ hsi_store(MR_rho70_HSI, name="rho70")
 
 # Create noise configs
 NoiseConf = builds(AdditiveWhiteGaussianNoise)
-Noiseless = NoiseConf(SNR=0.0)
+Noiseless = NoiseConf(SNR=0.0)  # NOTE: 0.0 => convention for lack of added noise!
 AWGN_20dB = NoiseConf(SNR=20.0)
 AWGN_30dB = NoiseConf(SNR=30.0)
 AWGN_40dB = NoiseConf(SNR=40.0)
@@ -45,8 +45,8 @@ noise_store(AWGN_30dB, name="30dB")
 noise_store(AWGN_40dB, name="40dB")
 
 
-# Create experiment config
-# Experiment_store = store(group="experiment")
+# TODO: Create unmixing model config
+# TODO: Register model config under group: model
 
 
 @store(

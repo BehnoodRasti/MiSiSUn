@@ -36,7 +36,7 @@ class BatchVCA:
         E = np.array(endmembers)
         # Clustering on extracted endmembers
         # kmeans = KMeans(n_clusters=self.r, random_state=0, n_init="auto").fit(E.T)
-        # NOTE: Use cosine distance!
+        # TODO: Use cosine distance!
         return E
 
 
