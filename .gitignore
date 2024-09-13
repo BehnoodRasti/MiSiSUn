@@ -1,8 +1,10 @@
 # Data folder
 **/data
-
+# Notebooks
+**/notebooks
 # Outputs
 **/outputs
+**/multirun
 
 # Compiled code
 *.pyc

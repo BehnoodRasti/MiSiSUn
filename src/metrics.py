@@ -104,17 +104,25 @@ class SRE(BaseMetric):
         return 20 * np.log10(LA.norm(Xref, "fro") / LA.norm(Xref - X, "fro"))
 
 
-def compute_metric(metric, X_gt, X_hat, labels, detail=True, on_endmembers=False):
+def compute_metric(
+    metric,
+    X_gt,
+    X_hat,
+    labels,
+    detail=True,
+    on_endmembers=False,
+    precision=2,
+):
     """
     Return individual and global metric
     """
     d = {}
-    d["Overall"] = round(metric(X_hat, X_gt), 4).item()
+    d["Overall"] = round(metric(X_hat, X_gt), precision).item()
     if detail:
         for ii, label in enumerate(labels):
             if on_endmembers:
                 x_gt, x_hat = X_gt[:, ii][:, None], X_hat[:, ii][:, None]
-                d[label] = round(metric(x_hat, x_gt), 4).item()
+                d[label] = round(metric(x_hat, x_gt), precision).item()
             else:
-                d[label] = round(metric(X_hat[ii], X_gt[ii]), 4).item()
+                d[label] = round(metric(X_hat[ii], X_gt[ii]), precision).item()
     return d

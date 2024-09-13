@@ -11,6 +11,7 @@ logs = getLogger(__name__)
 @dataclass
 class AdditiveWhiteGaussianNoise:  # AWGN
     SNR: float
+    seed: int = 0
 
     def noisify(self, Y):
         """Compute sigmas for the desired SNR given a flattened input HSI Y."""
@@ -44,7 +45,8 @@ class AdditiveWhiteGaussianNoise:  # AWGN
         #############
         # Transform #
         #############
-        noise = np.diag(sigmas) @ np.random.randn(p, n)
+        rng = np.random.default_rng(seed=self.seed)
+        noise = np.diag(sigmas) @ rng.standard_normal(size=(p, n))
 
         # Return additive noise
         return Y + noise
