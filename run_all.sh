@@ -8,7 +8,7 @@ python unmixing.py hsi=sim1 noise=20dB model=S2WSU model.lambd=0.1 noise.seed=0,
 # MUA_SLIC
 python unmixing.py hsi=sim1 noise=20dB model=MUA_SLIC model.lambda1=0.03 model.lambda2=0.1 model.beta=30 model.slic_size=6 model.slic_reg=0.005 noise.seed=0,1,2,3,4 --multirun
 # SUnCNN
-python unmixing.py hsi=sim1 noise=20dB model=SUnCNN SVD_project=True model.n_iters=4000 noise.seed=0,1,2,3,4 --multirun
+python unmixing.py hsi=sim1 noise=20dB model=SUnCNN SVD_project=True model.niters=4000 noise.seed=0,1,2,3,4 --multirun
 # SUnAA
 python unmixing.py hsi=sim1 noise=20dB model=SUnAA model.T=500 noise.seed=0,1,2,3,4 --multirun
 # FaSUn
