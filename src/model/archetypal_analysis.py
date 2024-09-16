@@ -30,7 +30,7 @@ class SUnAA(BaseUnmixingModel):
 
         def update_B(a, b):
             R = Y - (D @ b) @ a
-            for jj in range(self.p):
+            for jj in range(self.r):
                 z_j = D @ b[:, jj]
                 norm_aj = np.linalg.norm(a[jj])
                 if norm_aj < 1e-10:
