@@ -1,13 +1,10 @@
 from dataclasses import dataclass
 
 
-@dataclass
+@dataclass(eq=False)
 class BaseUnmixingModel:
     time: int = -1
     fitted: bool = False
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}"
 
     def register_time(self, time):
         self.fitted = True
