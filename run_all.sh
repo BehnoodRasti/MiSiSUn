@@ -56,6 +56,6 @@ python unmixing.py hsi=sim1 noise=40dB model=SUnAA model.T=500 noise.seed=0,1,2,
 # FaSUn
 python unmixing.py hsi=sim1 noise=40dB model=FaSUn model.T=10000 model.TA=5 model.TB=5 model.mu1=50.0 model.mu2=2.0 model.mu3=1.0 noise.seed=0,1,2,3,4 --multirun
 # SUnS
-python unmixing.py hsi=sim1 noise=40dB model=SUnShrink model.T=10000 model.TA=5 model.TB=5 model.mu1=50.0 model.mu2=2.0 model.mu3=1.0 model.hard=False model.lambd=0.01 noise.seed=0,1,2,3,4 --multirun
+python unmixing.py hsi=sim1 noise=40dB model=SUnS model.T=10000 model.TA=5 model.TB=5 model.mu1=50.0 model.mu2=2.0 model.mu3=1.0 model.hard=False model.lambd=0.01 noise.seed=0,1,2,3,4 --multirun
 # MiSiSUn
 python unmixing.py hsi=sim1 noise=40dB model=MiSiSUn model.T=10000 model.TA=5 model.TB=5 model.mu1=50.0 model.mu2=2.0 model.mu3=1.0 model.lamb=0.001 noise.seed=0,1,2,3,4 --multirun
