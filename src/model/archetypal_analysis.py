@@ -191,7 +191,7 @@ class FaSUn(BaseUnmixingModel):
         A = A.cpu().numpy()
         B = B.cpu().numpy()
         # return A, B
-        return A
+        return B @ A  # full-rank abundances!
 
 
 @dataclass
@@ -309,7 +309,7 @@ class MiSiSUn(BaseUnmixingModel):
         A = A.cpu().numpy()
         B = B.cpu().numpy()
         # return A, B
-        return A
+        return B @ A  # full-rank abundances!
 
 
 @dataclass
@@ -436,4 +436,4 @@ class SUnShrink(BaseUnmixingModel):
         A = A.cpu().numpy()
         B = S2.cpu().numpy()
         # return A, B
-        return A
+        return B @ A  # full-rank abundances!
