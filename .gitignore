@@ -5,6 +5,7 @@
 # Outputs
 **/outputs
 **/multirun
+*.zip
 
 # Compiled code
 *.pyc
