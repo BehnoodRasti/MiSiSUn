@@ -13,6 +13,7 @@ from src.metrics import compute_metric, SRE, aRMSE
 
 from hydra_zen import zen, store, make_custom_builds_fn
 import numpy as np
+import scipy.io as sio
 
 logs = getLogger(__name__)
 
@@ -24,6 +25,7 @@ Sim1_HSI = HSImageConf(name="sim1")
 MR_rho100_HSI = HSImageConf(name="MR_rho100_N10000")
 MR_rho85_HSI = HSImageConf(name="MR_rho85_N10000")
 MR_rho70_HSI = HSImageConf(name="MR_rho70_N10000")
+Cuprite_HSI = HSImageConf(name="Cuprite")
 
 # Register image configs under group: image
 hsi_store = store(group="hsi")
@@ -32,6 +34,7 @@ hsi_store(Sim1_HSI, name="sim1")
 hsi_store(MR_rho100_HSI, name="rho100")
 hsi_store(MR_rho85_HSI, name="rho85")
 hsi_store(MR_rho70_HSI, name="rho70")
+hsi_store(Cuprite_HSI, name="cuprite")
 
 # Create noise configs
 NoiseConf = builds(AdditiveWhiteGaussianNoise)
@@ -138,6 +141,9 @@ def unmix(
                 on_endmembers=False,
             )
         )
+
+    # Save abundance results
+    sio.savemat("./results.mat", {"A_hat": A})
 
     logs.info("SEMI-SUPERVISED UNMIXING...[END]")
 

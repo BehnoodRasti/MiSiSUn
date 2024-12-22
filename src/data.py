@@ -138,6 +138,6 @@ class HSImage:
 
 
 if __name__ == "__main__":
-    hsi = HSImage("sim1")
+    hsi = HSImage("Cuprite")
     data = hsi()
     print(hsi)
