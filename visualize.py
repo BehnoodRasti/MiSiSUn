@@ -35,3 +35,4 @@ if __name__ == "__main__":
         ax[rr].imshow(A, vmin=0.0, vmax=1.0, cmap="viridis")
 
     plt.tight_layout()
+    plt.savefig("abundances.png")
