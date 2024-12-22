@@ -13,6 +13,7 @@ from src.metrics import compute_metric, SRE, aRMSE
 
 from hydra_zen import zen, store, make_custom_builds_fn
 import numpy as np
+import scipy.io as sio
 
 logs = getLogger(__name__)
 
@@ -140,6 +141,9 @@ def unmix(
                 on_endmembers=False,
             )
         )
+
+    # Save abundance results
+    sio.savemat("./results.mat", {"A_hat": A})
 
     logs.info("SEMI-SUPERVISED UNMIXING...[END]")
 
