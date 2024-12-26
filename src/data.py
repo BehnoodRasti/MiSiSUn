@@ -31,14 +31,19 @@ class HSImage:
     name: str
     # Paths
     data_dir: str = "./data"
+    # Endmembers
+    r: int = 0
 
     def __post_init__(self) -> None:
+        unpacked_r = self.r
         filename = f"{self.name}.mat"
         path = Path(self.data_dir, filename)
         logs.debug(f"Path to be opened: {path}")
         assert path.is_file()
         self.path = path
         self._load()
+        if unpacked_r != 0:
+            self.r = unpacked_r
 
     def _load(self) -> None:
         data = sio.loadmat(self.path)
@@ -114,6 +119,7 @@ class HSImage:
             "lines": self.h,
             "samples": self.w,
             "atoms": self.m,
+            "endmembers": self.r,
         }
 
     def get_shape(self) -> Tuple[int, int]:
@@ -131,7 +137,7 @@ class HSImage:
         msg = f"HSI => {self.name}\n"
         msg += "-------------------------------\n"
         for key, value in self.get_dimensions().items():
-            msg += f"{key}: {value}\n"
+            msg += f"# {key}: {value}\n"
         msg += f"GlobalMinValue: {self.Y.min()}\n"
         msg += f"GlobalMaxValue: {self.Y.max()}\n"
         return msg
