@@ -91,6 +91,7 @@ class FaSUn(BaseUnmixingModel):
     TA: int = 5
     TB: int = 5
     T: int = 5000
+    low_rank: bool = False
 
     @torch.no_grad()  # NOTE: No gradients needed
     def compute_abundances(
@@ -191,6 +192,8 @@ class FaSUn(BaseUnmixingModel):
         A = A.cpu().numpy()
         B = B.cpu().numpy()
         # return A, B
+        if self.low_rank:
+            return A
         return B @ A  # full-rank abundances!
 
 
@@ -203,6 +206,7 @@ class MiSiSUn(BaseUnmixingModel):
     TB: int = 5
     T: int = 5000
     lamb: float = 0.001
+    low_rank: bool = False
 
     @torch.no_grad()  # NOTE: No gradients needed
     def compute_abundances(
@@ -309,6 +313,8 @@ class MiSiSUn(BaseUnmixingModel):
         A = A.cpu().numpy()
         B = B.cpu().numpy()
         # return A, B
+        if self.low_rank:
+            return A
         return B @ A  # full-rank abundances!
 
 
@@ -322,6 +328,7 @@ class SUnShrink(BaseUnmixingModel):
     T: int = 5000
     lambd: float = 0.1
     hard: bool = True
+    low_rank: bool = False
 
     @property
     def shrink(self):
@@ -436,4 +443,6 @@ class SUnShrink(BaseUnmixingModel):
         A = A.cpu().numpy()
         B = S2.cpu().numpy()
         # return A, B
+        if self.low_rank:
+            return A
         return B @ A  # full-rank abundances!
