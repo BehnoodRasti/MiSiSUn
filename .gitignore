@@ -4,6 +4,10 @@
 **/notebooks
 # Outputs
 **/outputs
+**/results
+**/logs
+**/figures
+**/Cuprite_dum
 **/multirun
 *.zip
 
