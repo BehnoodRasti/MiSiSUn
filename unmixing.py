@@ -86,7 +86,10 @@ def unmix(
     hsi: Type[HSImage],
     model: Type[BaseUnmixingModel],
     l2_normalize: bool = False,
+    minmax_normalize: bool = False,
     SVD_project: bool = False,
+    save_B: bool = False,
+    save_DB: bool = False,
 ):
     logs.info("SEMI-SUPERVISED UNMIXING...[START]")
     logs.info(hsi)
@@ -96,6 +99,10 @@ def unmix(
     h, w = hsi.get_shape()
     # Apply noise
     Y = noise.noisify(Y)
+    # Optional min-max normalization to [0, 1]
+    if minmax_normalize:
+        ymin, ymax = Y.min(), Y.max()
+        Y = (Y - ymin) / (ymax - ymin + 1e-12)
     # L2 normalization
     if l2_normalize:
         Y /= np.linalg.norm(
@@ -143,7 +150,16 @@ def unmix(
         )
 
     # Save abundance results
-    sio.savemat("./results.mat", {"A_hat": A})
+    results_to_save = {"A_hat": A}
+    # Archetypal models optionally store low-rank factors
+    if save_B and hasattr(model, "B"):
+        results_to_save["B_hat"] = model.B
+    if save_DB:
+        if hasattr(model, "E_hat"):
+            results_to_save["DB_hat"] = model.E_hat
+        elif hasattr(model, "B"):
+            results_to_save["DB_hat"] = D @ model.B
+    sio.savemat("./results.mat", results_to_save)
 
     logs.info("SEMI-SUPERVISED UNMIXING...[END]")
 

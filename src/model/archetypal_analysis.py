@@ -191,6 +191,9 @@ class FaSUn(BaseUnmixingModel):
 
         A = A.cpu().numpy()
         B = B.cpu().numpy()
+        # Store factors for later inspection/saving
+        self.B = B
+        self.E_hat = D.cpu().numpy() @ B
         # return A, B
         if self.low_rank:
             return A
@@ -312,6 +315,9 @@ class MiSiSUn(BaseUnmixingModel):
         logs.info(f"Final loss => {loss(A, B):.2e}")
         A = A.cpu().numpy()
         B = B.cpu().numpy()
+        # Store factors for later inspection/saving
+        self.B = B
+        self.E_hat = D.cpu().numpy() @ B
         # return A, B
         if self.low_rank:
             return A
@@ -442,6 +448,9 @@ class SUnShrink(BaseUnmixingModel):
         logs.info(f"Final loss => {loss(A, B):.2e}")
         A = A.cpu().numpy()
         B = S2.cpu().numpy()
+        # Store factors for later inspection/saving
+        self.B = B
+        self.E_hat = D.cpu().numpy() @ B
         # return A, B
         if self.low_rank:
             return A
