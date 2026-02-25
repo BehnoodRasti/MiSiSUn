@@ -1,12 +1,19 @@
 # Data folder
 **/data
+**/12_l10_mu1_500_mu2_50
+**/cuprite
 # Notebooks
 **/notebooks
 # Outputs
 **/outputs
+**/results
+**/logs
+**/figures
+**/Cuprite_dum
 **/multirun
 *.zip
-
+*.mat
+*.png
 # Compiled code
 *.pyc
 *.zip
