@@ -35,7 +35,7 @@ This regularization term pulls the endmembers toward the center of mass.
 
 ## MiSiSUn Features
 
-- Semi-supervised unmixing framework (the dictionary \(\mathbf{D}\) must be provided)
+- Semi-supervised unmixing framework (the dictionary *D* must be provided)
 - 9 unmixing methods: `MiSiSUn`, `FaSUn`, `SUnS`, `SUnAA`, `SUnCNN`, `S2WSU`, `MUA_SLIC`, `CLSUnSAL`, `SUnSAL`
 - 2 evaluation metrics: `SRE`, `RMSE`
 - 4 simulated datasets located under `./data/`
