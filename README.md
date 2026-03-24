@@ -91,7 +91,7 @@ The package has been tested on Linux and Windows using Python 3.10 and `pytorch-
 
 To run an experiment, you need to define a few parameters:
 
-- `data`: hyperspectral unmixing dataset (`DC1`, `DC2`, `MR70`, `MR85`, `MR100`)
+- `data`: hyperspectral unmixing dataset (`sim1`, `rho70`, `rho85`, `rho100`)
 - `model`: unmixing model (e.g. `MiSiSUn`)
 - `SNR`: input SNR (*optional*)
 
