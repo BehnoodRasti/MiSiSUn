@@ -81,11 +81,12 @@ cd MiSiSUn
 pip install -r requirements.txt
 ```
 
-## Important Note
+## Important Note  
 
-PyTorch is not included in `requirements.txt`. You need to install PyTorch separately according to your OS and CUDA version. See the [official installation guide](https://pytorch.org/get-started/locally/).
+The `requirements.txt` file already includes `torch==2.4.1` and CUDA 12 dependencies.
 
-The package has been tested on Linux and Windows using Python 3.10 and `pytorch-cuda=11.8`.
+The package was tested with Python 3.10. Please note that the current requirements are intended for a CUDA-enabled environment. If you are using a CPU-only setup or a different CUDA configuration, you may need to modify the PyTorch-related dependencies accordingly.
+
 
 ## Getting Started
 
