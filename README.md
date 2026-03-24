@@ -22,7 +22,7 @@ MiSiSUn solves the following nonconvex optimization problem:
 \end{aligned}
 ```
 
-where \(\mathbf{m}\) contains the mean values of the spectral pixels, i.e.,
+where **m** contains the mean values of the spectral pixels, i.e.,
 
 ```math
 \mathbf{m} = \frac{1}{n}\mathbf{Y}\mathbf{1}_n.
