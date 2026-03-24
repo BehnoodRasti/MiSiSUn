@@ -14,8 +14,8 @@ MiSiSUn solves the following nonconvex optimization problem:
 \begin{aligned}
 (\hat{\mathbf{B}}, \hat{\mathbf{A}})
 &= \arg\min_{\mathbf{B}, \mathbf{A}}
-\frac{1}{2}\left\| \mathbf{Y} - \mathbf{D}\mathbf{B}\mathbf{A} \right\|_F^2 \\
-&\quad + \lambda \left\| \mathbf{D}\mathbf{B} - \mathbf{m}\mathbf{1}_r^T \right\| \\
+\frac{1}{2}\left\| \mathbf{Y} - \mathbf{D}\mathbf{B}\mathbf{A} \right\|_F^2 
+\quad + \lambda \left\| \mathbf{D}\mathbf{B} - \mathbf{m}\mathbf{1}_r^T \right\| \\
 \text{s.t.}\quad
 &\mathbf{B} \ge 0,\ \mathbf{1}_m^T \mathbf{B} = \mathbf{1}_r^T, \\
 &\mathbf{A} \ge 0,\ \mathbf{1}_r^T \mathbf{A} = \mathbf{1}_n^T.
